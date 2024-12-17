@@ -5,7 +5,7 @@ import com.example.kataHFR.bank_account.exception.WithdrawalException;
 import com.example.kataHFR.bank_account.models.Account;
 import com.example.kataHFR.bank_account.services.impl.AccountServiceImpl;
 import com.example.kataHFR.bank_account.services.service.AccountService;
-import org.antlr.v4.runtime.misc.NotNull;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
