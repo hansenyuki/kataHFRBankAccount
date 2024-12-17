@@ -1,6 +1,7 @@
 package com.example.kataHFR.bank_account.controllers;
 
 import com.example.kataHFR.bank_account.exception.DepositException;
+import com.example.kataHFR.bank_account.exception.WithdrawalException;
 import com.example.kataHFR.bank_account.models.Account;
 import com.example.kataHFR.bank_account.services.impl.AccountServiceImpl;
 import com.example.kataHFR.bank_account.services.service.AccountService;
@@ -49,6 +50,22 @@ public class AccountController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
         } catch (Exception e) {
             log.error("Unexpected error during deposit for account ID: {}", id, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");
+        }
+    }
+
+    @PostMapping("/{id}/withdraw")
+    public ResponseEntity<String> makeWithdraw(@PathVariable Long id,
+                                                 @RequestParam(name = "amount") BigDecimal amount) {
+        try {
+            accountService.makeWithdraw(id, amount);
+            return ResponseEntity.ok("Withdrawal successful");
+        } catch (WithdrawalException e) {
+            log.error("Withdrawal failed for account ID: {} with amount: {}", id, amount, e);
+            String errorMessage = "Withdrawal failed: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+        } catch (Exception e) {
+            log.error("Unexpected error during Withdraw for account ID: {}", id, e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");
         }
     }

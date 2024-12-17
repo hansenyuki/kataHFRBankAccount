@@ -38,7 +38,19 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void makeWithdraw(Long accountId, BigDecimal amount) throws WithdrawalException {
-        //todo
+        Objects.requireNonNull(amount, OperationType.WITHDRAWAL + " cannot be null.");
+        if (amount.signum() <= 0) {
+            throw new WithdrawalException(OperationType.WITHDRAWAL + " must be greater than zero.");
+        }
+        Account account = getAccountById(accountId);
+        if (account.getBalance().compareTo(amount) < 0) {
+            throw new WithdrawalException("Insufficient balance for withdrawal :( ");
+        }
+        BigDecimal balanceUpdated = account.getBalance().subtract(amount);
+        account.setBalance(balanceUpdated);
+        accountRepository.save(account);
+        Operation operation = new Operation(LocalDateTime.now(), OperationType.WITHDRAWAL, amount, balanceUpdated, account);
+        operationRepository.save(operation);
     }
 
     @Override

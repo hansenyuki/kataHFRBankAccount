@@ -4,6 +4,7 @@ import com.example.kataHFR.bank_account.dao.AccountRepository;
 import com.example.kataHFR.bank_account.dao.OperationRepository;
 import com.example.kataHFR.bank_account.enums.OperationType;
 import com.example.kataHFR.bank_account.exception.DepositException;
+import com.example.kataHFR.bank_account.exception.WithdrawalException;
 import com.example.kataHFR.bank_account.models.Account;
 import com.example.kataHFR.bank_account.models.Operation;
 import com.example.kataHFR.bank_account.services.impl.AccountServiceImpl;
@@ -94,5 +95,44 @@ public class AccountServiceTest {
         when(accountRepository.findById(accountId)).thenReturn(Optional.empty());
 
         assertThrows(RuntimeException.class, () -> accountService.makeDeposit(accountId, amount));
+    }
+
+    @Test
+    @DisplayName("withdraw should update balance")
+    void withdraw_shouldUpdateBalance() throws WithdrawalException {
+
+        Optional<Account> mockedAccount = getMockedAccount();
+        when(accountRepository.findById(accountId)).thenReturn(mockedAccount);
+
+        accountService.makeWithdraw(mockedAccount.get().getId(), mockedAccount.get().getBalance());
+
+        verify(accountRepository, times(1)).save(mockedAccount.get());
+    }
+
+    @Test
+    @DisplayName("withdraw should throwException when amount is negative")
+    void withdraw_shouldThrowException_whenAmountIsNegative() {
+
+        Long accountId = 1L;
+        BigDecimal amount = new BigDecimal("-1.00");
+
+        Optional<Account> mockedAccount = getMockedAccount();
+
+        when(accountRepository.findById(accountId)).thenReturn(mockedAccount);
+
+        assertThrows(WithdrawalException.class, () -> accountService.makeWithdraw(accountId, amount));
+    }
+
+    @Test
+    @DisplayName("withdraw should throwException when balance is insufficient")
+    void withdraw_shouldThrowException_whenBalanceInsufficient() {
+        // Given
+        Long accountId = 1L;
+        BigDecimal amount = new BigDecimal("5000.00");
+        Optional<Account> mockedAccount = getMockedAccount();
+
+        when(accountRepository.findById(accountId)).thenReturn(mockedAccount);
+
+        assertThrows(WithdrawalException.class, () -> accountService.makeWithdraw(accountId, amount));
     }
 }
