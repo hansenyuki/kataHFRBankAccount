@@ -1,3 +1,5 @@
+controllers\OperationControllerTest.class
 com\example\kataHFR\bank_account\DemoApplicationTests.class
 services\AccountServiceTest.class
 controllers\AccountControllerTest.class
+services\OperationServiceTest.class

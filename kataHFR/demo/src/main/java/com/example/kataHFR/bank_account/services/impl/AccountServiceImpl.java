@@ -11,17 +11,15 @@ import com.example.kataHFR.bank_account.models.Operation;
 import com.example.kataHFR.bank_account.services.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Service
-@Transactional
 public class AccountServiceImpl implements AccountService {
 
-    private final AccountRepository accountRepository;
+    private AccountRepository accountRepository;
     private final OperationRepository operationRepository;
 
     @Autowired

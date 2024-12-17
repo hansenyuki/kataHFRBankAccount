@@ -1,5 +1,6 @@
 package services;
 
+
 import com.example.kataHFR.bank_account.dao.AccountRepository;
 import com.example.kataHFR.bank_account.dao.OperationRepository;
 import com.example.kataHFR.bank_account.enums.OperationType;
@@ -14,8 +15,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 import java.math.BigDecimal;
