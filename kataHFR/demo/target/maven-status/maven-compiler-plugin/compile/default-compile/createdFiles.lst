@@ -1,9 +1,13 @@
-com\example\kataHFR\bank_account\DemoApplication.class
-com\example\kataHFR\bank_account\exceptions\DepositException.class
-com\example\kataHFR\bank_account\exceptions\WithdrawalException.class
+com\example\kataHFR\bank_account\exception\DepositException.class
+com\example\kataHFR\bank_account\models\Operation$OperationBuilder.class
 com\example\kataHFR\bank_account\services\impl\AccountServiceImpl.class
-com\example\kataHFR\bank_account\dao\AccountRepository.class
 com\example\kataHFR\bank_account\services\service\AccountService.class
 com\example\kataHFR\bank_account\models\Account$AccountBuilder.class
 com\example\kataHFR\bank_account\models\Account.class
+com\example\kataHFR\bank_account\DemoApplication.class
+com\example\kataHFR\bank_account\models\Operation.class
+com\example\kataHFR\bank_account\dao\AccountRepository.class
+com\example\kataHFR\bank_account\enums\OperationType.class
 com\example\kataHFR\bank_account\controllers\AccountController.class
+com\example\kataHFR\bank_account\dao\OperationRepository.class
+com\example\kataHFR\bank_account\exception\WithdrawalException.class
